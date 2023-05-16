@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fi-FI">
+  <head>
+    <meta charset="utf-8">
+    
+  </head>
+  
+
+  <body>
+    <h3>Number guessing game by Mahshid</h3>
+
+    <p>Guess a number between 1 to 100, You have at most 10 chances.</p>
+
+    <div>  
+      <label for="guess">Enter a number:</label>
+      <input type="number" min="1" max="100" required id="guess">
+      <button id="submit">Submit</button>
+    </div>
+
+    <p id="result"></p>
+    <p id="message"></p>
+    <p id="previous"></p>
+
+    <script>
+
+      let random = Math.floor(Math.random() * 100) + 1;
+     
+      const guess = document.getElementById('guess');
+      const submit = document.getElementById('submit');
+      const result = document.getElementById('result');
+      const message = document.getElementById('message');
+      const previous = document.getElementById('previous');
+      let count = 1;
+      let previousGuesses = [];
+
+      function check() {
+        if (count === 10) {
+          result.innerHTML = 'YOU LOSE';
+          
+          message.innerHTML = '';
+          submit.addEventListener('click', check);
+        } else if (guess.value == random) {
+          result.innerHTML = 'YOU WIN!';
+          message.innerHTML = '';
+          submit.addEventListener('click', check);
+        } else {
+          if (guess.value < random) {
+            message.innerHTML = 'Last guess was low!';
+          } else {
+            message.innerHTML = 'Last guess was high!';
+          }
+          previousGuesses.push(guess.value);
+     
+          previous.innerHTML = 'Your previous guesses: ' + previousGuesses.join(', ');
+    
+    }
+        count++;
+      }
+
+      submit.addEventListener('click', check);
+    </script>
+  </body>
+</html>
